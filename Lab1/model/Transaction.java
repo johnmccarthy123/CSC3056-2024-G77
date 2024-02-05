@@ -39,5 +39,10 @@ public class Transaction {
 	public String toString() {
 		return account_number + ", " + transaction_amount + ", " + transaction_date;
 	}
-    
+	public Transaction(String account_number, double transaction_amount, Date transaction_date) {
+        this.account_number = account_number;
+        this.transaction_amount = transaction_amount;
+        this.transaction_date = transaction_date;
+    }
+
 }
