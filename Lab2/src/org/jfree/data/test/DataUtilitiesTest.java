@@ -35,7 +35,6 @@ public class DataUtilitiesTest {
         assertEquals("Column total calculation failed with valid data", 5.0, DataUtilities.calculateColumnTotal(values2D, 1), 0.0000001d);
     }
 
-
     @Test
     public void testCalculateRowTotalValidData() {
         assertEquals("Row total calculation failed with valid data", 4.0, DataUtilities.calculateRowTotal(values2D, 0), 0.0000001d);
@@ -63,7 +62,6 @@ public class DataUtilitiesTest {
         assertEquals("Cumulative percentage calculation failed for second item", 1.0, result.getValue(1).doubleValue(), 0.000001);
     }
 
-
     @Test
     public void testColumnTotalWithNegativeIndex() {
         try {
@@ -80,5 +78,40 @@ public class DataUtilitiesTest {
             fail("Expected an IndexOutOfBoundsException for out of range index");
         } catch (IndexOutOfBoundsException e) {
         }
+    }
+
+    @Test
+    public void testCreateNumberArrayWithEmptyData() {
+        double[] input = new double[]{};
+        Number[] expected = new Number[]{};
+        assertArrayEquals("Number array creation with empty data failed", expected, DataUtilities.createNumberArray(input));
+    }
+
+    @Test
+    public void testCreateNumberArray2DWithEmptyData() {
+        double[][] input = new double[][]{};
+        Number[][] expected = new Number[][]{};
+        assertArrayEquals("2D Number array creation with empty data failed", expected, DataUtilities.createNumberArray2D(input));
+    }
+
+    @Test
+    public void testGetCumulativePercentagesWithEmptyData() {
+        KeyedValues emptyValues = new DefaultKeyedValues();
+        KeyedValues result = DataUtilities.getCumulativePercentages(emptyValues);
+        assertTrue("Cumulative percentages with empty data should be empty", result.getItemCount() == 0);
+    }
+
+    @Test
+    public void testCreateNumberArray2DWithSingleElement() {
+        double[][] input = new double[][]{{42.0}};
+        Number[][] expected = new Number[][]{{42.0}};
+        assertArrayEquals("2D Number array creation with single element failed", expected, DataUtilities.createNumberArray2D(input));
+    }
+
+    @Test
+    public void testCreateNumberArrayWithNegativeNumbers() {
+        double[] input = new double[]{-1.0, -2.0, -3.0};
+        Number[] expected = new Number[]{-1.0, -2.0, -3.0};
+        assertArrayEquals("Number array creation with negative numbers failed", expected, DataUtilities.createNumberArray(input));
     }
 }
